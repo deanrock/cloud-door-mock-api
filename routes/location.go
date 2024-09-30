@@ -25,7 +25,7 @@ func InitLocationRoutes(e *echo.Echo) {
 	location := e.Group("/api/Location")
 	location.Use(utils.RequiresAuthToken)
 
-	location.POST("/GetUserLocations", func(c echo.Context) error {
+	location.GET("/GetUserLocations", func(c echo.Context) error {
 		var data []client.DoorCloudLocationDtosUserLocationDto
 		for _, door := range doors {
 			data = append(data, client.DoorCloudLocationDtosUserLocationDto{
