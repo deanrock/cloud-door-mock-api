@@ -35,6 +35,7 @@ func InitLocationRoutes(e *echo.Echo) {
 					Id:        utils.Pointer(uuid.New()),
 					Latitude:  utils.Pointer(45.64993864503844),
 					Longitude: utils.Pointer(13.775274149794846),
+					Radius:    utils.Pointer((int32)(80)),
 					Name:      utils.Pointer("Geolocation #X"),
 				}}),
 				Id:         utils.Pointer(door.Id),
