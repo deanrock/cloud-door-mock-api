@@ -57,8 +57,15 @@ func InitLocationRoutes(e *echo.Echo) {
 
 		for _, door := range doors {
 			if door.Id.String() == accessPointId {
-				data := client.DoorCloudCommandLogDtosCommandLogReference{
-					Id: utils.Pointer(door.Id),
+				data := client.DoorCloudBaseDataResultDoorCloudCommandLogDtosCommandLogReference{
+					Data: &client.DoorCloudCommandLogDtosCommandLogReference{
+						Id: utils.Pointer(door.Id),
+					},
+					Exception:            nil,
+					IsError:              utils.Pointer(false),
+					IsSuccess:            utils.Pointer(true),
+					IsSuccessWithWarning: utils.Pointer(false),
+					Message:              utils.Pointer("Success"),
 				}
 				return c.JSON(200, utils.ToAbpResponse(data))
 			}
