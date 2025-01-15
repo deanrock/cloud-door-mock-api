@@ -48,7 +48,7 @@ func InitTokenRoutes(e *echo.Echo) {
 					ErrorDescription: "The username or password is incorrect.",
 				}
 
-				return c.JSON(200, data)
+				return c.JSON(400, data)
 			}
 		}
 
