@@ -16,28 +16,40 @@ func InitTokenRoutes(e *echo.Echo) {
 			return c.NoContent(500)
 		}
 
-		if client_id == "DoorCloudWebApp" && grant_type == "password" && username == "user@example.com" && password == "password" {
-			data := struct {
-				Expires      string `json:".expires"`
-				Issued       string `json:".issued"`
-				AccessToken  string `json:"access_token"`
-				AsClientId   string `json:"as:client_id"`
-				ExpiresIn    int    `json:"expires_in"`
-				RefreshToken string `json:"refresh_token"`
-				TokenType    string `json:"token_type"`
-				UserName     string `json:"userName"`
-			}{
-				Expires:      "Sun, 29 Sep 2024 13:38:55 GMT",
-				Issued:       "Sun, 29 Sep 2024 12:38:55 GMT",
-				AccessToken:  utils.AccessToken(),
-				AsClientId:   "DoorCloudWebApp",
-				ExpiresIn:    3599,
-				RefreshToken: "gwx4g2bi2ydu3wg8eg6p5dyedtfk53ag",
-				TokenType:    "bearer",
-				UserName:     "user@example.com",
-			}
+		if client_id == "DoorCloudWebApp" && grant_type == "password" {
+			if username == "user@example.com" && password == "password" {
+				data := struct {
+					Expires      string `json:".expires"`
+					Issued       string `json:".issued"`
+					AccessToken  string `json:"access_token"`
+					AsClientId   string `json:"as:client_id"`
+					ExpiresIn    int    `json:"expires_in"`
+					RefreshToken string `json:"refresh_token"`
+					TokenType    string `json:"token_type"`
+					UserName     string `json:"userName"`
+				}{
+					Expires:      "Sun, 29 Sep 2024 13:38:55 GMT",
+					Issued:       "Sun, 29 Sep 2024 12:38:55 GMT",
+					AccessToken:  utils.AccessToken(),
+					AsClientId:   "DoorCloudWebApp",
+					ExpiresIn:    3599,
+					RefreshToken: "gwx4g2bi2ydu3wg8eg6p5dyedtfk53ag",
+					TokenType:    "bearer",
+					UserName:     "user@example.com",
+				}
 
-			return c.JSON(200, data)
+				return c.JSON(200, data)
+			} else {
+				data := struct {
+					Error            string `json:"error"`
+					ErrorDescription string `json:"error_description"`
+				}{
+					Error:            "invalid_grant",
+					ErrorDescription: "The username or password is incorrect.",
+				}
+
+				return c.JSON(200, data)
+			}
 		}
 
 		return c.NoContent(500)

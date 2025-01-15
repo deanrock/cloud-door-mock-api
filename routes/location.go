@@ -9,17 +9,21 @@ import (
 
 func InitLocationRoutes(e *echo.Echo) {
 	doors := []struct {
-		Name string
-		Id   uuid.UUID
+		Name   string
+		Radius int32
+		Id     uuid.UUID
 	}{{
-		Name: "Floor #1",
-		Id:   uuid.MustParse("de75458c-7bbb-4b33-b5d8-dc69b565357a"),
+		Name:   "Floor #1",
+		Radius: 80,
+		Id:     uuid.MustParse("de75458c-7bbb-4b33-b5d8-dc69b565357a"),
 	}, {
-		Name: "Floor #2",
-		Id:   uuid.MustParse("e77afeb3-bbdd-44bb-8281-e9b483ea2664"),
+		Name:   "Floor #2",
+		Radius: 80,
+		Id:     uuid.MustParse("e77afeb3-bbdd-44bb-8281-e9b483ea2664"),
 	}, {
-		Name: "Floor #3",
-		Id:   uuid.MustParse("3ce2c622-2d6f-4755-8a06-9d91f27d56bc"),
+		Name:   "Floor #3",
+		Radius: 999999999,
+		Id:     uuid.MustParse("3ce2c622-2d6f-4755-8a06-9d91f27d56bc"),
 	}}
 
 	location := e.Group("/api/Location")
@@ -35,7 +39,7 @@ func InitLocationRoutes(e *echo.Echo) {
 					Id:        utils.Pointer(uuid.New()),
 					Latitude:  utils.Pointer(45.64993864503844),
 					Longitude: utils.Pointer(13.775274149794846),
-					Radius:    utils.Pointer((int32)(80)),
+					Radius:    utils.Pointer(door.Radius),
 					Name:      utils.Pointer("Geolocation #X"),
 				}}),
 				Id:         utils.Pointer(door.Id),
