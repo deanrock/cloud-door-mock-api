@@ -8,7 +8,7 @@ import (
 func InitTokenRoutes(e *echo.Echo) {
 	e.POST("/token", func(c echo.Context) error {
 		client_id := c.FormValue("client_id")
-		grant_type := c.FormValue("password")
+		grant_type := c.FormValue("grant_type")
 		username := c.FormValue("username")
 		password := c.FormValue("password")
 
